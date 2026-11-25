@@ -480,6 +480,13 @@ header.top nav.pn{display:none}
 .br-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.br-act .btn{margin:0}
 /* satu menu saja di HP: petugas pakai hamburger, warga pakai bottom nav */
 @media(max-width:719px){.shell.px .bn{display:none!important}.shell.px .ftr{padding-bottom:24px}.wg-fl{display:none}}
+/* katalog berita responsif: web = dua kolom, foto utuh; HP = foto kecil di pojok */
+.sl-s.sl-ph{min-height:300px;grid-template-columns:minmax(0,1fr) 300px;gap:30px;padding:36px 40px;align-items:center}
+.sl-s.sl-ph .sl-tx{min-width:0}
+.sl-s.sl-ph .sl-pic{justify-self:end;align-self:center;width:300px;height:250px;max-width:none;padding:12px;border-radius:24px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);box-shadow:0 18px 40px rgba(0,0,0,.2);display:grid;place-items:center}
+.sl-s.sl-ph .sl-pic img{width:100%;height:100%;max-height:none;object-fit:contain;background:#fff;border-radius:14px}
+@media(max-width:1023px){.sl-s.sl-ph{grid-template-columns:minmax(0,1fr) 230px;padding:30px 30px;gap:22px}.sl-s.sl-ph .sl-pic{width:230px;height:200px}}
+@media(max-width:719px){.sl-s.sl-ph{grid-template-columns:1fr;min-height:260px;padding:24px 22px;gap:2px}.sl-s.sl-ph .sl-pic{position:absolute;right:14px;top:14px;width:124px;height:auto;padding:4px;border-radius:16px;background:#fff;border:0;box-shadow:0 10px 24px rgba(0,0,0,.18);justify-self:auto;display:block}.sl-s.sl-ph .sl-pic img{height:auto;max-height:150px;background:transparent;border-radius:12px}.sl-s.sl-ph .sl-tx{padding-right:136px}}
 </style></head><body>
 <div id="root"></div><div id="tt" role="status" aria-live="polite"></div>
 <script>
