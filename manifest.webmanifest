@@ -1,0 +1,22 @@
+{
+  "id": "./",
+  "name": "E PUSKESOS Cikulak Kidul",
+  "short_name": "E PUSKESOS",
+  "description": "Pusat Kesejahteraan Sosial Desa Cikulak Kidul: antrian BPJS, bansos, dan pengaduan warga.",
+  "lang": "id",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E6F7FB",
+  "theme_color": "#0B7A66",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Ambil antrian BPJS", "url": "./#antrian", "icons": [{"src": "icon-192.png", "sizes": "192x192"}]},
+    {"name": "Masuk petugas", "url": "./#admin", "icons": [{"src": "icon-192.png", "sizes": "192x192"}]}
+  ]
+}
