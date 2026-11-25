@@ -577,14 +577,14 @@ async function buatAntrian(f,manual){const h=today();
 const dupA=D.antrian.find(x=>x.tgl==h&&x.nik==f.nik);if(dupA)throw{dup:dupA};
 const id=rid(),ref=DB.collection('counter').doc(h),aRef=DB.collection('antrian').doc(id),warga=!manual&&!DEMO;
 let nh='',mRef=null;const useNh=!DEMO;if(useNh){nh=await nhash(f.nik);mRef=DB.collection('nikHari').doc(h+'_'+nh)}
-return DB.runTransaction(async t=>{if(useNh){const mk=await t.get(mRef);if(mk.exists)throw{dup:true}}
-const q=await t.get(ref),m=(q.exists?q.data().n:0)+1;if(aq().kuota&&m>aq().kuota)throw'penuh';t.set(ref,warga?{n:m,ref:id}:{n:m});if(useNh)t.set(mRef,{tgl:h});
+return DB.runTransaction(async t=>{if(useNh){const mk=await t.get(mRef);if(mk.exists){const pr=mk.data()&&mk.data().ref;if(!pr)throw{dup:true};const oa=await t.get(DB.collection('antrian').doc(pr));if(oa.exists)throw{dup:true}}}
+const q=await t.get(ref),m=(q.exists?q.data().n:0)+1;if(aq().kuota&&m>aq().kuota)throw'penuh';t.set(ref,warga?{n:m,ref:id}:{n:m});if(useNh)t.set(mRef,{tgl:h,ref:id});
 const o={id,tgl:h,jam:jam(),nomor:m,...f,status:'menunggu',...(manual?{manual:true}:{persetujuan:true,waktuSetuju:new Date().toISOString()}),...(warga?{nh}:{})};t.set(aRef,o);return o})}
 
 const ADUP=`<div class="ad" role="alert"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div><b>NIK sudah terdaftar di antrian BPJS hari ini</b><span>Satu NIK hanya bisa mengambil <u>satu nomor</u> per hari. Jika ini nomor Anda, cek tiket di HP yang tadi dipakai mendaftar. Untuk keperluan lain, silakan datang pada jadwal berikutnya atau tanyakan ke petugas.</span></div></div>`;
 function adupShow(){const e=$('#ad'+'up');if(e)e.innerHTML=ADUP;$('#ak')?.classList.add('inv');const b=$('#abtn');if(b)b.disabled=true;navigator.vibrate&&navigator.vibrate(120)}
 function adupClear(){const e=$('#adup');if(e)e.innerHTML='';$('#ak')?.classList.remove('inv');const b=$('#abtn');if(b)b.disabled=false}
-async function cekNikAnt(k){try{let ada=false;if(DEMO)ada=D.antrian.some(x=>x.tgl==today()&&x.nik==k);else{const q=await DB.collection('nikHari').doc(today()+'_'+await nhash(k)).get();ada=q.exists}if(ada&&($('#ak')||{}).value==k)adupShow()}catch(e){}}
+async function cekNikAnt(k){try{let ada=false;if(DEMO)ada=D.antrian.some(x=>x.tgl==today()&&x.nik==k);else{const q=await DB.collection('nikHari').doc(today()+'_'+await nhash(k)).get();if(q.exists){const d=q.data()||{};ada=!d.ref?true:(await DB.collection('antrian').doc(d.ref).get()).exists}}if(ada&&($('#ak')||{}).value==k)adupShow()}catch(e){}}
 let _dl=false;
 async function daftar(){if(_dl)return;const st0=aqState();if(!st0.ok)return toast(st0.msg);const g=i=>$('#'+i).value.trim(),n=g('an'),k=g('ak');
 if(!n||!g('aa')||!g('ade')||!g('ah'))return toast('Lengkapi nama, alamat, desa, dan no HP');if(!$('#aset').checked)return toast('Centang persetujuan data pribadi');if(!/^\d{16}$/.test(k))return toast('NIK harus 16 digit angka');
