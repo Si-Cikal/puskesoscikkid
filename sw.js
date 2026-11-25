@@ -1,6 +1,6 @@
 /* E PUSKESOS service worker: cache kerangka aplikasi agar bisa dibuka cepat dan tetap tampil saat sinyal buruk.
    Data (Firebase) tidak pernah disimpan di sini. Naikkan VERSI setiap kali index.html diperbarui. */
-const VERSI = 'puskesos-v9';
+const VERSI = 'puskesos-v10';
 const INTI = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 const LUAR = ['cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
 
